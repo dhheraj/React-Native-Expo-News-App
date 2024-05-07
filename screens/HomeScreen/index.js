@@ -1,5 +1,5 @@
 import React, { Component,useState } from 'react'
-import { View, Text, Image, ScrollView, Linking,StatusBar, Button, Pressable } from 'react-native'
+import { View, Text, Image, ScrollView, Linking,StatusBar, Button, Pressable,Alert, Share } from 'react-native'
 import axios from 'axios'
 import { Card, Title, Paragraph } from 'react-native-paper'
 import Header from '../../components/AppBar'
@@ -246,7 +246,25 @@ export default class HomeScreen extends Component {
 componentDidMount() {
         this.getArticles();
     }
-
+    //  onShare = async () => {
+    //   try {
+    //     const result = await Share.share({
+    //       message:
+    //         'React Native | A framework for building native apps using React',
+    //     });
+    //     if (result.action === Share.sharedAction) {
+    //       if (result.activityType) {
+    //         // shared with activity type of result.activityType
+    //       } else {
+    //         // shared
+    //       }
+    //     } else if (result.action === Share.dismissedAction) {
+    //       // dismissed
+    //     }
+    //   } catch (error) {
+    //     Alert.alert(error.message);
+    //   }
+    // };
     render(){
         const{ isLoading, articles } = this.state;
         return (
@@ -278,13 +296,36 @@ componentDidMount() {
         </View>
         <View style={{margin:10,marginTop:-15}}>
         <Paragraph>{description}</Paragraph>
+        {/* <Pressable  onPress={()=>{ Alert.alert('Alert Title', 'My Alert Msg', [
+      {
+        text: 'Ask me later',
+        onPress: () => console.log('Ask me later pressed'),
+      },
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ])}} style={{alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 50,
+    }}>
+      <Text style={{ fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'black',}}>Share</Text>
+      </Pressable> */}
         {/* <Text>Published At: {date}</Text> */}
         </View>
-        <View style={{margin:10,marginTop:-6}}>
+        <View style={{margin:10,marginTop:-6,flexDirection:'row'}}>
           <Pressable onPress={()=>{Linking.openURL(`${url}`)}}  style={{alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
-    paddingHorizontal: 10,
+    paddingHorizontal: 70,
     borderRadius: 50,
     elevation: 3,
     backgroundColor: 'black',}}>
@@ -294,6 +335,27 @@ componentDidMount() {
     letterSpacing: 0.25,
     color: 'white',}}>Read more</Text>
       </Pressable>
+
+      {/* share */}
+      <Pressable  onPress={()=>{const result =  Share.share({
+          message:`${url}`,
+        })} } style={{alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 50,
+    }}>
+      <Text style={{ fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'black',}}>Share</Text>
+      </Pressable>
+      
+
+      
+      {/* <Button onPress={onShare} title="Share" /> */}
+      {/* <i class="far fa-share-square"></i> */}
         </View>
         </Card>
         );
